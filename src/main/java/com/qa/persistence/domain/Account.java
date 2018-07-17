@@ -10,16 +10,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Account {
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
+
 	private Long id;
-	private String firstName;
+
+	@NotNull private String firstName;
 	private String secondName;
-	private String accountNumber;
+	@Size(max= 6, min= 6) @Min (100000) private String accountNumber;
 	@JoinColumn(name = "account_id")
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Transaction> transaction;
